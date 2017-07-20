@@ -186,11 +186,11 @@
                                     <constraint firstAttribute="height" constant="30" id="EeZ-9c-4X2"/>
                                     <constraint firstAttribute="width" constant="30" id="Z5P-oW-oCj"/>
                                 </constraints>
-                                <state key="normal" image="degree">
+                                <state key="normal" title="F" image="degree">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="degreeButtonPressed:" destination="lEv-VO-2Qi" eventType="touchUpInside" id="T7j-re-OZL"/>
+                                    <action selector="degreeButtonPressed:" destination="lEv-VO-2Qi" eventType="touchUpInside" id="1jz-zL-Ggv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -255,7 +255,7 @@
                         <outlet property="dayZeroTemperatureHighLabel" destination="7ux-fU-aCD" id="Nch-uJ-RB4"/>
                         <outlet property="dayZeroTemperatureLow" destination="vId-D8-EbB" id="Zbj-nK-EI1"/>
                         <outlet property="dayZeroTemperatureLowLabel" destination="Gtc-qG-Vbj" id="5yG-x8-VxL"/>
-                        <outlet property="degreeButton" destination="XhU-Oo-gGp" id="sog-UG-nla"/>
+                        <outlet property="degreeButton" destination="XhU-Oo-gGp" id="w30-pC-TxC"/>
                         <outlet property="heatIndex" destination="hej-XD-cRh" id="HcV-le-45r"/>
                         <outlet property="humidityLabel" destination="TbD-4k-TES" id="33J-AS-KEX"/>
                         <outlet property="humidityUILabel" destination="9lc-Kk-a4F" id="YY8-5B-3la"/>

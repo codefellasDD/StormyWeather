@@ -21,7 +21,7 @@ final class DataManager {
     
     typealias WeatherDataCompletion = (AnyObject?, DataManagerError?) -> ()
     var curForecastArray:[Currently] = []
-    
+    var dailyForecastArray:[DailyForecast] = []
     var baseURL: URL
     
     // MARK: - Initialization
@@ -61,7 +61,6 @@ final class DataManager {
     }
     
     private func processWeatherData(data: Data, completion: WeatherDataCompletion) {
-        var dailyForecastArray:[DailyForecast] = []
         if let JSON = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject {
             if let dailyForecasts = JSON["daily"] as? [String:Any] {
                 if let dailyData = dailyForecasts["data"] as? [[String:Any]] {
@@ -93,6 +92,10 @@ final class DataManager {
         } else {
             completion(nil, .InvalidResponse)
         }
+    }
+    
+    func convertToCelsius(fahrenheit: Int) -> Int {
+        return Int(5.0 / 9.0 * (Double(fahrenheit) - 32.0))
     }
     
 }

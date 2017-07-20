@@ -16,7 +16,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var lat:Double = 0.0
     var long:Double = 0.0
     
-    var dailyForecastWeather = [DailyForecast]()
     let dataManager = DataManager(baseURL: API.AuthenticatedBaseURL)
     
     let swipeRec = UISwipeGestureRecognizer()
@@ -63,10 +62,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var userLocation : String!
     var userLatitude : Double!
     var userLongitude : Double!
-    var userTemperatureCelsius : Bool!
-    
+    var userTemperatureCelsius : Bool = true
+    var temperature: Int = 0
+    var temperatureMin: Int = 0
+    var temperatureMax: Int = 0
     var currently = [Currently]()
-    
+    var dailyForecastWeather = [DailyForecast]()
     var audioPlayer = AVAudioPlayer()
     
 
@@ -77,9 +78,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let tempCelsius = defaults.bool(forKey: "celsius")
 
         userTemperatureCelsius = tempCelsius
-        print("defaults: celsius  = \(userTemperatureCelsius!)");
+        print("defaults: celsius  = \(userTemperatureCelsius)")
         
-        swipeRec.addTarget(self, action: #selector(ViewController.swipedView))
+        swipeRec.addTarget(self, action: #selector(swipedView))
         swipeRec.direction = UISwipeGestureRecognizerDirection.down
         swipeView.addGestureRecognizer(swipeRec)
         refresh()
@@ -151,17 +152,45 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             guard let loco = locality, let admArea = administrativeArea else {return}
-            self.userLocationLabel.text = "\(loco), \(admArea)"
+            DispatchQueue.main.async {
+                self.userLocationLabel.text = "\(loco), \(admArea)"
+            }
             let latti = self.userLatitude!
             let longi = self.userLongitude!
-            print("Location \(self.currently.count) für \(latti),\(longi)")
             self.dataManager.weatherDataForLocation(latitude: latti, longitude: longi) { (response, error) in
-                //print("Anzahl \(self.currently.count) für \(self.userLatitude),\(self.userLongitude)")
-                for dataPoint in self.currently {
-                    print("huhu: \(dataPoint.temperature) für \(latti),\(longi)")
-                    self.temperatureLabel.text = "Temp: \(dataPoint.temperature)"
+                DispatchQueue.main.async {
+                    for dataPoint in self.dataManager.curForecastArray {
+                       // self.temperatureLabel.text = "\(Int(dataPoint.temperature))"
+                        self.temperature = Int(dataPoint.temperature)
+                        var dailyForecastArrayFirst = [DailyForecast]()
+                        dailyForecastArrayFirst.append(self.dataManager.dailyForecastArray.first!)
+                        for dp in dailyForecastArrayFirst {
+                    
+                          //  self.dayZeroTemperatureLow.text = "\(Int(dp.temperatureMin))"
+                            self.temperatureMin = Int(dp.temperatureMin)
+                          //  self.dayZeroTemperatureHigh.text = "\(Int(dp.temperatureMax))"
+                            self.temperatureMax = Int(dp.temperatureMax)
+                        }
+                        self.summaryLabel.text = "\(dataPoint.summary)"
+                        self.humidityLabel.text = "\(dataPoint.humidity)"
+                        self.precipitationLabel.text = "\(dataPoint.precipitation)"
+                        self.windSpeedLabel.text = "\(dataPoint.windSpeed)"
+                        self.iconView.image = UIImage(named: "\(dataPoint.icon)")
+                    }
+                    //HEAT INDEX
+                    if self.temperature < 60 {
+                        self.heatIndex.image = UIImage(named: "heatindexWinter")
+                        self.dayZeroTemperatureLow.textColor = UIColor(red: 0/255.0, green: 121/255.0, blue: 255/255.0, alpha: 1.0)
+                        self.dayZeroTemperatureHigh.textColor = UIColor(red: 245/255.0, green: 6/255.0, blue: 93/255.0, alpha: 1.0)
+                        
+                        
+                    } else {
+                        self.heatIndex.image = UIImage(named:"heatindex")
+                        
+                    }
                 }
                 
+             self.fahrenheitInCelsius(check: self.userTemperatureCelsius)
             }
         }
     }
@@ -192,12 +221,38 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     
-    @IBAction func degreeButtonPressed(sender: AnyObject) {
-        
-        print("TemperatureMode \(userTemperatureCelsius!)");
-        
-        
-        
+    @IBAction func degreeButtonPressed(_ sender: Any) {
+        switch userTemperatureCelsius {
+        case false:
+            fahrenheitInCelsius(check: false)
+            userTemperatureCelsius = true
+        case true:
+            fahrenheitInCelsius(check: true)
+            userTemperatureCelsius = false
+        default: break
+            
+        }
+    }
+    
+    func fahrenheitInCelsius(check: Bool) {
+        switch check {
+        case false:
+            DispatchQueue.main.async {
+                self.temperatureLabel.text = "\(self.dataManager.convertToCelsius(fahrenheit: self.temperature))"
+                self.dayZeroTemperatureLow.text = "\(self.dataManager.convertToCelsius(fahrenheit: self.temperatureMin))"
+                self.dayZeroTemperatureHigh.text = "\(self.dataManager.convertToCelsius(fahrenheit: self.temperatureMax))"
+                self.degreeButton.imageView?.image = UIImage(named: "degree")
+            }
+        case true:
+            DispatchQueue.main.async {
+                self.temperatureLabel.text = "\(self.temperature)"
+                self.dayZeroTemperatureLow.text = "\(self.temperatureMin)"
+                self.dayZeroTemperatureHigh.text = "\(self.temperatureMax)"
+                self.degreeButton.titleLabel?.text = "F"
+            }
+        default: break
+            
+        }
     }
     
     //SOUNDS

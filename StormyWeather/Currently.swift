@@ -17,7 +17,7 @@ struct Currently {
     let windSpeed: Double
     let pressure: Double
     let humidity: Double
-    
+    let precipitation: Double
     
     enum SerializationError:Error {
         case missing(String)
@@ -40,6 +40,8 @@ struct Currently {
         
         guard let humidity = json["humidity"] as? Double else {throw SerializationError.missing("temp is missing")}
         
+        guard let precipitation = json["precipProbability"] as? Double else {throw SerializationError.missing("temp is missing")}
+        
         
         self.summary = summary
         self.icon = icon
@@ -48,5 +50,6 @@ struct Currently {
         self.windSpeed = windSpeed
         self.pressure = pressure
         self.humidity = humidity
+        self.precipitation = precipitation
     }
 }

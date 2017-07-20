@@ -16,6 +16,9 @@
 		290C732B1F1FDDDB001FA96B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C732A1F1FDDDB001FA96B /* Configuration.swift */; };
 		290C732D1F1FDE3E001FA96B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C732C1F1FDE3E001FA96B /* DataManager.swift */; };
 		290C732F1F1FE413001FA96B /* Currently.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C732E1F1FE413001FA96B /* Currently.swift */; };
+		290C73331F2106ED001FA96B /* popit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 290C73301F2106ED001FA96B /* popit.wav */; };
+		290C73341F2106ED001FA96B /* Squeaky Creaky.wav in Resources */ = {isa = PBXBuildFile; fileRef = 290C73311F2106ED001FA96B /* Squeaky Creaky.wav */; };
+		290C73351F2106ED001FA96B /* swoosh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 290C73321F2106ED001FA96B /* swoosh.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		290C732A1F1FDDDB001FA96B /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		290C732C1F1FDE3E001FA96B /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		290C732E1F1FE413001FA96B /* Currently.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currently.swift; sourceTree = "<group>"; };
+		290C73301F2106ED001FA96B /* popit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = popit.wav; sourceTree = "<group>"; };
+		290C73311F2106ED001FA96B /* Squeaky Creaky.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Squeaky Creaky.wav"; sourceTree = "<group>"; };
+		290C73321F2106ED001FA96B /* swoosh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swoosh.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,9 @@
 				290C73181F1FDA8E001FA96B /* ViewController.swift */,
 				290C732A1F1FDDDB001FA96B /* Configuration.swift */,
 				290C732C1F1FDE3E001FA96B /* DataManager.swift */,
+				290C73301F2106ED001FA96B /* popit.wav */,
+				290C73311F2106ED001FA96B /* Squeaky Creaky.wav */,
+				290C73321F2106ED001FA96B /* swoosh.wav */,
 				290C73281F1FDB09001FA96B /* DailyForcast.swift */,
 				290C732E1F1FE413001FA96B /* Currently.swift */,
 				290C731A1F1FDA8E001FA96B /* Main.storyboard */,
@@ -137,8 +146,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				290C73211F1FDA8E001FA96B /* LaunchScreen.storyboard in Resources */,
+				290C73351F2106ED001FA96B /* swoosh.wav in Resources */,
+				290C73331F2106ED001FA96B /* popit.wav in Resources */,
 				290C731E1F1FDA8E001FA96B /* Assets.xcassets in Resources */,
 				290C731C1F1FDA8E001FA96B /* Main.storyboard in Resources */,
+				290C73341F2106ED001FA96B /* Squeaky Creaky.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
