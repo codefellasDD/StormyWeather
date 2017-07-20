@@ -159,7 +159,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                 //print("Anzahl \(self.currently.count) für \(self.userLatitude),\(self.userLongitude)")
                 for dataPoint in self.currently {
                     print("huhu: \(dataPoint.temperature) für \(latti),\(longi)")
-                    self.temperatureLabel.text = "\(dataPoint.temperature)"
+                    self.temperatureLabel.text = "Temp: \(dataPoint.temperature)"
                 }
                 
             }
